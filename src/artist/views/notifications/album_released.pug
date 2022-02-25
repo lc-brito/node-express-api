@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title= 'New album released'
+        style
+            include ../styles/styles.css
+    body
+
+        section
+            - artistName = `<b>${artist.name}</b>`
+            - albumName = `<b>${album.name}</b>`
+            p One of your favorites artist, !{artistName}, just released a new album called !{albumName}.
+            p
+            a(href=`https://music-api.com/releases/${album.id}`) Check it out now
+            p
+
+            table
+                thead
+                    tr
+                        th Track
+                        th Song
+                        th Duration
+                tbody
+                    each song in album.songs
+                      tr
+                        td=song.track
+                        td=song.name
+                        td=song.time
