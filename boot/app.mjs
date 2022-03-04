@@ -4,6 +4,7 @@ import AppProvider from './providers/AppProvider.mjs';
 import ExceptionHandler from './exception/ExceptionHandler.mjs';
 import CoreProvider from '../src/core/providers/Provider.mjs';
 import RouteProvider from './providers/RouteProvider.mjs';
+import AuthProvider from '../src/auth/providers/Provider.mjs';
 import ArtistProvider from '../src/artist/providers/Provider.mjs';
 
 import Compression from './middlewares/Compression.mjs';
@@ -15,6 +16,7 @@ async function registerProviders(app) {
   RouteProvider.boot(app);
   CoreProvider.boot(app);
   ArtistProvider.boot(app);
+  AuthProvider.boot(app);
 }
 
 function boot(app) {

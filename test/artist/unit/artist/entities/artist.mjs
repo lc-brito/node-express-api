@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { faker } from '@faker-js/faker';
-import Artist from '../../../../src/artist/entities/Artist.mjs';
+import Artist from '../../../../../src/artist/entities/Artist.mjs';
 
 describe('Artist', () => {
   it('create an instance', () => {

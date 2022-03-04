@@ -1,4 +1,4 @@
-import RepositoryImpl from '../../../adapters/repository/index.mjs';
+import RepositoryImpl from '../../core/repository/index.mjs';
 import AlbumRepository from '../repositories/AlbumRepository.mjs';
 import ArtistRepository from '../repositories/ArtistRepository.mjs';
 

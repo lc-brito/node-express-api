@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { faker } from '@faker-js/faker';
-import Song from '../../../../src/artist/entities/Song.mjs';
-import Album from '../../../../src/artist/entities/Album.mjs';
+import Song from '../../../../../src/artist/entities/Song.mjs';
+import Album from '../../../../../src/artist/entities/Album.mjs';
 
 const range = (min, max) => parseInt(Math.random() * (max - min) + min, 10);
 

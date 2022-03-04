@@ -18,8 +18,13 @@ function isInDevelopmentMode() {
   return isEnvironmentEqualsTo(DEVELOPMENT);
 }
 
+function baseUrl() {
+  return process.env.BASE_URL;
+}
+
 export default {
   isInProductionMode,
   isInStagingMode,
   isInDevelopmentMode,
+  baseUrl,
 };
