@@ -4,10 +4,13 @@ import AuthRepository from '../repositories/AuthRepository.mjs';
 import ChangePassword from '../actions/ChangePassword.mjs';
 
 import ChangePasswordValidator from './validators/ChangePasswordValidator.mjs';
+import Logger from '../../core/logger/index.mjs';
 
 const authRepository = new AuthRepository(RepositoryImpl);
 
 export async function change(request, response, next) {
+  Logger.info('Auth', 'change password', `User changing password using token ${request.body.token}`);
+
   const changePasswordDto = {
     token: request.body.token,
     password: request.body.password,
@@ -25,6 +28,8 @@ export async function change(request, response, next) {
   try {
     await changePasswordAction.execute(changePasswordDto);
   } catch (error) {
+    Logger.error('Auth', 'change password', error.message);
+
     return next(error);
   }
 

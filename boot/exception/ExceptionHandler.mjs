@@ -1,8 +1,9 @@
 import Application from '../../src/support/Application.mjs';
 import BaseException from '../../src/core/exceptions/BaseException.mjs';
+import Logger from '../../src/core/logger/index.mjs';
 
 function handleRejection(reason) {
-  console.error('Unhandled Rejection: ', reason);
+  Logger.error('Rejection', 'Unhandled Rejection', reason);
   throw reason;
 }
 
@@ -15,7 +16,7 @@ function isTrustedError(error) {
 }
 
 function handleException(error) {
-  console.error('Uncaught Exception thrown: ', error.message);
+  Logger.error('Exception', 'Uncaught exception thrown: ', error.message);
 
   if (!isTrustedError(error)) {
     process.exit(1);
@@ -34,17 +35,18 @@ function handleError(error, request, response, next) {
     responseObject.stack = error.stack || null;
   }
 
+  Logger.fatal('Error', 'Handle error', error.message);
+
   return response
     .status(status)
     .json(responseObject);
 }
 
 function handleSigterm(server) {
-  console.info('SIGTERM signal received.');
-  console.info('Closing http server.');
+  Logger.fatal('SIGTERM', 'Handle SIGTERM', 'SIGTERM signal received.');
 
   server.close(() => {
-    console.log('Http server closed.');
+    Logger.fatal('SIGTERM', 'Handle SIGTERM', 'Http server closed.');
   });
 }
 

@@ -4,11 +4,14 @@ import AuthRepository from '../repositories/AuthRepository.mjs';
 import AuthenticateUser from '../actions/AuthenticateUser.mjs';
 import LogoutUser from '../actions/LogoutUser.mjs';
 import AuthenticateValidator from './validators/AuthenticateValidator.mjs';
+import Logger from '../../core/logger/index.mjs';
 
 const tokenRepository = new TokenRepository(RepositoryImpl);
 const authRepository = new AuthRepository(RepositoryImpl);
 
 export async function authenticate(request, response, next) {
+  Logger.info('Auth', 'authenticate', `Authenticating user ${request.body.email}`);
+
   try {
     await AuthenticateValidator.validate(request.body);
   } catch (error) {
@@ -25,6 +28,8 @@ export async function authenticate(request, response, next) {
   try {
     authorization = await authenticateAction.execute(email, password);
   } catch (error) {
+    Logger.error('Auth', 'authenticate', error.message);
+
     return next(error);
   }
 

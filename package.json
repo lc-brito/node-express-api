@@ -4,7 +4,7 @@
   "description": "A simple API to manage artists and their songs",
   "main": "app.mjs",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --trace-warnings app.mjs",
+    "start": "NODE_ENV=development nodemon --trace-warnings app.mjs | pino-pretty",
     "debug": "NODE_ENV=development DEBUG=express:* nodemon app.mjs",
     "test": "mocha --require-esm --recursive ./test/**/*.mjs"
   },
@@ -22,6 +22,9 @@
     "express": "^4.17.3",
     "indicative": "^7.4.4",
     "jsonwebtoken": "^8.5.1",
+    "pino": "^7.8.0",
+    "pino-pretty": "^7.5.3",
+    "pino-syslog": "^2.0.0",
     "pug": "^3.0.2",
     "uuid": "^8.3.2"
   },
