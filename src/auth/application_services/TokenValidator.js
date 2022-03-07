@@ -19,7 +19,7 @@ class TokenValidator {
   }
 
   async isRefreshTokenExpired(refreshTokenString) {
-    const token = await this.#repository.getByToken(refreshTokenString);
+    const token = await this.#repository.getByRefreshToken(refreshTokenString);
 
     if (token === null) {
       return true;
