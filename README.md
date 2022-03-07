@@ -4,6 +4,21 @@
 The purpose of this project is to serve as an example that shows how to structure a [Nodejs](https://nodejs.org/en/) API, using [Express](https://expressjs.com/) framework, into layers to compose a maintainable project, keeping framework, application, and domain isolated from each other.
 
 
+## How to run
+
+1. Install the dependencies
+
+`npm install`
+
+2. Run in develop mode
+
+ `npm run start`
+
+## Requirements
+
+It's required to have NodeJS, preferably the latest stable version.
+To install NodeJS, is suggested to use [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm).  
+
 ## Folder structure
 
 > adapters
@@ -41,7 +56,7 @@ The last one, **maintenance**, is responsible to define how the application resp
 All others subdirectories are specific application logic, in this project sample, `account`, `artist` and `auth` are application domains.
 
 Each module also follows a convention:
-1. in the root of module there is a `routes` file, which exports all available routes of this module;
+1. in the root of module there is a `routes` file, which exports all available routes of this module. This routes are loaded by `boot/providers/RouteProvider`;
 2. a folder named `Provider` export any initialization that is required to set up the module. This provider is loaded by `boot/app` and run at the application boot;
 3. the `controller` holds the functions/controllers that handle the requests to each route;
 4. the `actions` directory contains the ports for the application, they are called by `controllers` to execute a specific task in the domain;
@@ -55,3 +70,7 @@ Each module also follows a convention:
 > test
 
 All tests are in this directory, it follows the same folder structure as `src`, except it don't need all subfolders that are inside each module. 
+
+## Production mode
+
+In order to run the app in production mode, is required some process manager (PM2)  start the application and keep it running. For that, there is an initialization file `ecosystem.config` where is defined the application name, entry point, exec mode, besides other configs. 
