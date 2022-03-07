@@ -45,11 +45,13 @@ It's well known that that kind of files should be in a CDN server, and files to 
 
 This is the most important directory, it's where the application code stands.
 The directory has multiple subdirectories, and each one is a module that answer for a specific application context.
-Some modules (03 of them) are not related to application itself, are support modules (or core modules). 
+Some modules (04 of them) are not related to application itself, are support modules (or core modules). 
 
 The **core** module provides resources to the application (events, exceptions, notifier, repository decoupling, view render), they act as interfaces providing decoupling to the domain from adapters.
 
 The **support** module has global helpers.
+
+The **logger** module exports functions that helps to registry log messages (errors, infos, warning, etc);
 
 The last one, **maintenance**, is responsible to define how the application responds to a not defined route and health check router.
 
