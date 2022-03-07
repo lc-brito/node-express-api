@@ -37,4 +37,6 @@ export default async (app) => {
 
   const server = boot(app);
   ExceptionHandler.handle(app, server);
+
+  process.send && process.send('ready');
 };
