@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken';
 import Token from '../entities/Token.js';
 
 export default function (tokenPayload) {
-  // const fiveMinutesFromNow = (new Date()).setMinutes(new Date().getMinutes() + 5);
-  const fiveMinutesFromNow = (new Date()).setSeconds(new Date().getSeconds() + 10);
+  const fiveMinutesFromNow = (new Date()).setMinutes(new Date().getMinutes() + 5);
   const oneDayFromNow = (new Date()).setHours(new Date().getHours() + 24);
 
   const token = jwt.sign(
