@@ -3,7 +3,6 @@ import Application from '../config/app.mjs';
 import AppProvider from './providers/AppProvider.mjs';
 import ExceptionHandler from './exception/ExceptionHandler.mjs';
 import CoreProvider from '../src/core/providers/Provider.mjs';
-import RouteProvider from './providers/RouteProvider.mjs';
 import AuthProvider from '../src/auth/providers/Provider.mjs';
 import ArtistProvider from '../src/artist/providers/Provider.mjs';
 
@@ -13,7 +12,6 @@ import QueryString from './middlewares/QueryString.mjs';
 
 async function registerProviders(app) {
   AppProvider.boot(app);
-  RouteProvider.boot(app);
   CoreProvider.boot(app);
   ArtistProvider.boot(app);
   AuthProvider.boot(app);
@@ -21,9 +19,9 @@ async function registerProviders(app) {
 
 function boot(app) {
   return app.listen(
-    Application.api.port,
+    Application.cron.port,
     () => {
-      console.log(`Application ${Application.api.name} up and listening on port ${Application.api.port}.`);
+      console.log(`Application ${Application.cron.name} up and listening on port ${Application.cron.port}.`);
     },
   );
 }
