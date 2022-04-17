@@ -4,7 +4,9 @@
   "description": "A simple API to manage artists and their songs",
   "main": "app.mjs",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --trace-warnings app.mjs | pino-pretty",
+    "start": "npm run start api",
+    "start_api": "NODE_ENV=development nodemon --trace-warnings app.mjs | pino-pretty",
+    "start_cron": "NODE_ENV=development nodemon --trace-warnings cron.mjs | pino-pretty",
     "debug": "NODE_ENV=development DEBUG=express:* nodemon app.mjs",
     "test": "mocha --require-esm --recursive ./test/**/*.mjs"
   },
