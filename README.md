@@ -12,7 +12,11 @@ The purpose of this project is to serve as an example that shows how to structur
 
 2. Run in develop mode
 
- `npm run start`
+Run the API  `npm run start_api`
+
+Run cron jobs  `npm run start_cron`
+
+Or run both using [PM2](https://pm2.keymetrics.io/), `pm2 start ecosystem.config.cjs`
 
 ## Requirements
 
@@ -23,7 +27,7 @@ To install NodeJS, is suggested to use [https://github.com/nvm-sh/nvm](https://g
 
 > adapters
 
-Code that integrates application with external tools (database drivers, email integration, notification, other services), an adapter in the sense of the word.
+Code that integrates application with external tools (database drivers, email integration, notification, other services, cron jobs), an adapter in the sense of the word.
 This code is not part of the application but is required by it to execute some commands. Adapters are injected into the domain to decouple the dependency.
 
 
@@ -62,12 +66,13 @@ Each module also follows a convention:
 2. a folder named `Provider` export any initialization that is required to set up the module. This provider is loaded by `boot/app` and run at the application boot;
 3. the `controller` holds the functions/controllers that handle the requests to each route;
 4. the `actions` directory contains the ports for the application, they are called by `controllers` to execute a specific task in the domain;
-5. when some logic is required by an `action`, and that logic is not related to solving some business problem, it's up to an `application_service` to implement that logic;
-6. `entities` have all domain entities (class or functions);
+5. when some logic is required by an `action`, and that logic is not related to solving some business problem directly, it's up to an `application_service` to implement that logic;
+6. the `entities` have all domain entities (class or functions);
 7. the `events` contains all events emitted by the application or domain, also the listeners for that events;
-8. `presenters` contains functions to format the output, they are used only by controllers;
+8. the `presenters` contains functions to format the output, they are used only by controllers;
 9. the `repositories` directory holds all repositories implementation required by its module. By _implementation_ means to have the methods to save and query data, also work with collections. To save and query data, it uses a specific implementation that is provided to its constructor, so the save and query are just abstractions.
-10. when working with views, all view templates and assets are put in `views` directory.
+10. when working with views, all view templates and assets are put in `views` directory;
+11. tasks that needs to run frequently (cron jobs) are stored in `jobs` folder.
 
 > test
 
@@ -75,4 +80,4 @@ All tests are in this directory, it follows the same folder structure as `src`, 
 
 ## Production mode
 
-In order to run the app in production mode, is required some process manager (PM2)  start the application and keep it running. For that, there is an initialization file `ecosystem.config` where is defined the application name, entry point, exec mode, besides other configs. 
+In order to run the app in production mode, is required some process manager (PM2) to start the application and keep it running. For that, there is an initialization file `ecosystem.config` where is defined the application name, entry point, exec mode, besides other configs. 
