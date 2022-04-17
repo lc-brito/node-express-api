@@ -1,4 +1,4 @@
 export default {
-  name: 'Music-API',
+  name: 'Node-API-Skeleton',
   port: 3001,
 };
