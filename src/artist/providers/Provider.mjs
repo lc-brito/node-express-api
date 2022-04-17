@@ -5,6 +5,8 @@ import { subscribe } from '../../core/event/index.mjs';
 import ArtistCreatedListener from '../events/ArtistCreatedListener.js';
 import AlbumCreatedListener from '../events/AlbumCreatedListener.js';
 
+import DailyNews from '../jobs/DailyNews.mjs';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,9 +15,21 @@ const LISTENERS = [
   AlbumCreatedListener,
 ];
 
+const JOBS = [
+  DailyNews,
+];
+
 function registerEventListeners() {
   LISTENERS.forEach((listener) => {
     subscribe(listener);
+  });
+}
+
+function registersJobs(app) {
+  JOBS.forEach((Job) => {
+    app.locals.schedule(
+      new Job('01 * * * * *'),
+    );
   });
 }
 
@@ -29,6 +43,7 @@ function registerViews(app) {
 export default {
   boot: (app) => {
     registerViews(app);
+    registersJobs(app);
     registerEventListeners();
   },
 };
