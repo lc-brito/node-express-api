@@ -26,6 +26,10 @@ function registerEventListeners() {
 }
 
 function registersJobs(app) {
+  if (!app.locals.schedule) {
+    return;
+  }
+
   JOBS.forEach((Job) => {
     app.locals.schedule(
       new Job('01 * * * * *'),
