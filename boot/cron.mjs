@@ -13,6 +13,7 @@ async function registerProviders(app) {
   ScheduleProvider.boot(app);
   ArtistProvider.boot(app);
   AuthProvider.boot(app);
+  ExceptionHandler.boot(app);
 }
 
 function boot(app) {
@@ -28,7 +29,7 @@ export default async (app) => {
   await registerProviders(app);
 
   const server = boot(app);
-  ExceptionHandler.handle(app, server);
+  ExceptionHandler.handleServerErrors(server);
 
   process.send && process.send('ready');
 };

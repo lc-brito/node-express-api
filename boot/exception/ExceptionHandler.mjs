@@ -24,6 +24,10 @@ function handleException(error) {
 }
 
 function handleError(error, request, response, next) {
+  if (response.headersSent) {
+    return next(error);
+  }
+
   const status = error.httpCode || 500;
 
   const responseObject = {
@@ -42,6 +46,27 @@ function handleError(error, request, response, next) {
     .json(responseObject);
 }
 
+function handleServerError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  switch (error.code) {
+    case 'EACCES':
+      console.error('Requires elevated privileges');
+      handleException(error);
+      break;
+
+    case 'EADDRINUSE':
+      console.error('Address is already in use');
+      handleException(error);
+      break;
+
+    default:
+      throw error;
+  }
+}
+
 function handleSigterm(server) {
   Logger.fatal('SIGTERM', 'Handle SIGTERM', 'SIGTERM signal received.');
 
@@ -50,16 +75,23 @@ function handleSigterm(server) {
   });
 }
 
+function handleAppErrors(app) {
+  app.use(handleError);
+
+  process.on('unhandledRejection', handleRejection);
+
+  process.on('uncaughtException', handleException);
+}
+
+function handleServerErrors(server) {
+  server.on('error', handleServerError);
+
+  process.on('SIGTERM', () => handleSigterm(server));
+
+  process.on('SIGINT', () => handleSigterm(server));
+}
+
 export default {
-  handle: (app, server) => {
-    process.on('unhandledRejection', handleRejection);
-
-    process.on('uncaughtException', handleException);
-
-    process.on('SIGTERM', () => handleSigterm(server));
-
-    process.on('SIGINT', () => handleSigterm(server));
-
-    app.use(handleError);
-  },
+  boot: handleAppErrors,
+  handleServerErrors,
 };
