@@ -54,12 +54,12 @@ function handleServerError(error) {
   switch (error.code) {
     case 'EACCES':
       console.error('Requires elevated privileges');
-      handleException(error);
+      Logger.error('Requires elevated privileges');
       break;
 
     case 'EADDRINUSE':
       console.error('Address is already in use');
-      handleException(error);
+      Logger.error('Address is already in use');
       break;
 
     default:
