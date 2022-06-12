@@ -1,3 +1,5 @@
+const production = process.env.NODE_ENV === 'production';
+
 module.exports = {
   apps: [
     {
@@ -6,12 +8,16 @@ module.exports = {
       watch: false,
       exec_mode: 'cluster',
       source_map_support: false,
-      instances: 'max',
+      instances: production ? 'max' : 1,
       wait_ready: true,
-      listen_timeout: 5000,
+      listen_timeout: 2000,
       merge_logs: true,
-      env: {
+      ignore_watch: ['logs', 'node_modules', '.pm2'],
+      env_production: {
         NODE_ENV: 'production',
+      },
+      env_development: {
+        NODE_ENV: 'development',
       },
     },
     {
@@ -22,10 +28,14 @@ module.exports = {
       exec_mode: 'fork',
       instances: 1,
       merge_logs: true,
-      listen_timeout: 5000,
+      listen_timeout: 2000,
       cron_restart: '1 0 * * *',
-      env: {
+      ignore_watch: ['logs', 'node_modules', '.pm2'],
+      env_production: {
         NODE_ENV: 'production',
+      },
+      env_development: {
+        NODE_ENV: 'development',
       },
     },
   ],
