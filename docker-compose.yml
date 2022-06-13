@@ -16,6 +16,19 @@ services:
     volumes:
       - .:/home/app/
 
+  cron:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    container_name: node-api-skeleton-cron
+    restart: always
+    environment:
+      NODE_ENV: development
+    command: [ "nodemon", "--trace-warnings",  "cron.mjs", "| pino-pretty" ]
+    user: 1000:1000
+    volumes:
+      - .:/home/app/
+
   assistant:
     build:
       context: .
