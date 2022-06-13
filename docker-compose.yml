@@ -9,7 +9,7 @@ services:
     restart: always
     environment:
       NODE_ENV: development
-    command: ['pm2-runtime', 'start', 'ecosystem.config.cjs', '--watch', '--env', 'development']
+    command: ["nodemon", "--trace-warnings",  "app.mjs", "| pino-pretty"]
     user: 1000:1000
     ports:
       - "3001:3001"
