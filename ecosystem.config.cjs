@@ -12,7 +12,7 @@ module.exports = {
       wait_ready: true,
       listen_timeout: 2000,
       merge_logs: true,
-      ignore_watch: ['logs', 'node_modules', '.pm2'],
+      ignore_watch: ['logs', 'node_modules', '.pm2', '.npm'],
       env_production: {
         NODE_ENV: 'production',
       },
@@ -30,7 +30,7 @@ module.exports = {
       merge_logs: true,
       listen_timeout: 2000,
       cron_restart: '1 0 * * *',
-      ignore_watch: ['logs', 'node_modules', '.pm2'],
+      ignore_watch: ['logs', 'node_modules', '.pm2', '.npm'],
       env_production: {
         NODE_ENV: 'production',
       },
